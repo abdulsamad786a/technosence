@@ -1014,16 +1014,31 @@
 				});
 			});
 
-			// Mobile submenu toggle
-			const submenuToggles = document.querySelectorAll('.dropdown-submenu > .dropdown-item');
-			submenuToggles.forEach(toggle => {
-				toggle.addEventListener('click', function (e) {
-					if (window.innerWidth <= 991) {
-						e.preventDefault();
-						const submenu = this.parentElement;
-						submenu.classList.toggle('active');
-					}
-				});
+			// Mobile-friendly click-based submenu toggle
+			const submenuParents = document.querySelectorAll(".dropdown-submenu");
+			submenuParents.forEach(parent => {
+				const toggleLink = parent.querySelector(".dropdown-item");
+				if (toggleLink) {
+					toggleLink.addEventListener("click", function (e) {
+						if (window.innerWidth <= 991) {
+							e.preventDefault();
+							e.stopPropagation();
+							
+							// Close other open submenus
+							document.querySelectorAll(".submenu").forEach(menu => {
+								if (menu !== parent.querySelector(".submenu")) {
+									menu.classList.remove("open");
+								}
+							});
+							
+							// Toggle this submenu
+							const submenu = parent.querySelector(".submenu");
+							if (submenu) {
+								submenu.classList.toggle("open");
+							}
+						}
+					});
+				}
 			});
 
 			// Set active navigation item
@@ -1234,7 +1249,7 @@
 					resizeTimeout = setTimeout(() => {
 						scrollPosition = 0;
 						if (window.innerWidth > 991) {
-							servicesCarousel.style.transform = 'translateX(0)';
+						servicesCarousel.style.transform = 'translateX(0)';
 						}
 						updateButtons();
 					}, 250);

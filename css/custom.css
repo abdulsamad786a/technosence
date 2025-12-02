@@ -313,14 +313,7 @@ body {
 }
 
 /* Disable hover effects on mobile/tablet */
-@media (max-width: 991px) {
-    .nav-dropdown:hover > .dropdown-menu,
-    .dropdown-submenu:hover > .submenu {
-        opacity: 1;
-        visibility: visible;
-        transform: none;
-    }
-}
+/* Removed hover-only behavior for mobile - now using click-based toggle */
 
 .dropdown-menu::before {
     content: '';
@@ -392,12 +385,35 @@ body {
     transform: translateX(-10px);
     transition: all 0.3s ease;
     z-index: 1001;
+    display: none; /* Base state - hidden by default */
 }
 
-.dropdown-submenu:hover > .submenu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
+/* Mobile-friendly click-based submenu toggle */
+.submenu.open {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Desktop hover - keep for desktop only */
+@media (min-width: 992px) {
+    .dropdown-submenu:hover > .submenu {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+    }
+}
+
+/* Mobile-friendly click-based submenu toggle */
+.submenu {
+    display: none;
+}
+
+.submenu.open {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
 }
 
 .submenu li a {
@@ -595,9 +611,24 @@ body {
         transition: max-height 0.3s ease;
     }
     
+    /* Mobile-friendly click-based submenu toggle */
+    .submenu.open {
+        display: block !important;
+        max-height: 500px !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+    
+    /* Keep active class support for backward compatibility */
     .dropdown-submenu.active > .submenu {
         display: block;
         max-height: 500px;
+    }
+    
+    /* Ensure .open class takes precedence */
+    .dropdown-submenu.active > .submenu.open {
+        display: block !important;
+        max-height: 500px !important;
     }
     
     .logo-img {
@@ -943,7 +974,7 @@ body {
     position: relative;
     padding: 0 45px;
 }
-
+    
 /* Pagination Dots - Hidden on Desktop */
 .carousel-dots {
     display: none;
