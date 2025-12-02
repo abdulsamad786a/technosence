@@ -367,6 +367,8 @@
 						<button class="carousel-nav-btn carousel-next" id="servicesNext" aria-label="Next">
 							<i class="fas fa-chevron-right"></i>
 						</button>
+						<!-- Pagination Dots for Mobile -->
+						<div class="carousel-dots" id="carouselDots"></div>
 					</div>
 				</div>
 			</section>
@@ -1091,14 +1093,33 @@
 			const servicesCarousel = document.getElementById('servicesCarousel');
 			const servicesPrev = document.getElementById('servicesPrev');
 			const servicesNext = document.getElementById('servicesNext');
+			const carouselDots = document.getElementById('carouselDots');
+			const carouselContainer = servicesCarousel ? servicesCarousel.parentElement : null;
 			
 			if (servicesCarousel && servicesPrev && servicesNext) {
 				let scrollPosition = 0;
+				const cards = servicesCarousel.querySelectorAll('.service-card');
+				const totalCards = cards.length;
+				
+				// Create pagination dots for mobile
+				if (carouselDots && totalCards > 0) {
+					carouselDots.innerHTML = '';
+					for (let i = 0; i < totalCards; i++) {
+						const dot = document.createElement('button');
+						dot.className = 'carousel-dot';
+						if (i === 0) dot.classList.add('active');
+						dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+						dot.addEventListener('click', () => {
+							goToSlide(i);
+						});
+						carouselDots.appendChild(dot);
+					}
+				}
+				
 				const getCardWidth = () => {
 					// Get actual card width including gap
 					const firstCard = servicesCarousel.querySelector('.service-card');
 					if (firstCard) {
-						const cardStyle = window.getComputedStyle(firstCard);
 						const cardWidth = firstCard.offsetWidth;
 						const gap = parseInt(window.getComputedStyle(servicesCarousel).gap) || 25;
 						return cardWidth + gap;
@@ -1111,6 +1132,62 @@
 					const maxScroll = servicesCarousel.scrollWidth - container.offsetWidth;
 					servicesPrev.disabled = scrollPosition <= 0;
 					servicesNext.disabled = scrollPosition >= maxScroll - 10; // small buffer for rounding
+					updateDots();
+				};
+				
+				const updateDots = () => {
+					if (!carouselDots || !carouselContainer) return;
+					
+					// For mobile: calculate which card is visible based on scroll
+					if (window.innerWidth <= 991) {
+						const cardWidth = getCardWidth();
+						const currentIndex = Math.round(scrollPosition / cardWidth);
+						const dots = carouselDots.querySelectorAll('.carousel-dot');
+						dots.forEach((dot, index) => {
+							if (index === currentIndex) {
+								dot.classList.add('active');
+							} else {
+								dot.classList.remove('active');
+							}
+						});
+					} else {
+						// For desktop: use transform position
+						const cardWidth = getCardWidth();
+						const currentIndex = Math.round(scrollPosition / cardWidth);
+						const dots = carouselDots.querySelectorAll('.carousel-dot');
+						dots.forEach((dot, index) => {
+							if (index === currentIndex) {
+								dot.classList.add('active');
+							} else {
+								dot.classList.remove('active');
+							}
+						});
+					}
+				};
+				
+				const goToSlide = (index) => {
+					if (index < 0 || index >= totalCards) return;
+					
+					const cardWidth = getCardWidth();
+					scrollPosition = index * cardWidth;
+					
+					// For mobile: use scrollIntoView
+					if (window.innerWidth <= 991 && carouselContainer) {
+						const targetCard = cards[index];
+						if (targetCard) {
+							targetCard.scrollIntoView({
+								behavior: 'smooth',
+								block: 'nearest',
+								inline: 'start'
+							});
+						}
+					} else {
+						// For desktop: use transform
+						servicesCarousel.style.transform = `translateX(-${scrollPosition}px)`;
+					}
+					
+					updateDots();
+					updateButtons();
 				};
 				
 				servicesPrev.addEventListener('click', () => {
@@ -1129,13 +1206,36 @@
 					updateButtons();
 				});
 				
+				// Update dots on scroll (for mobile touch/swipe)
+				if (carouselContainer && window.innerWidth <= 991) {
+					let scrollTimeout;
+					carouselContainer.addEventListener('scroll', () => {
+						clearTimeout(scrollTimeout);
+						scrollTimeout = setTimeout(() => {
+							const scrollLeft = carouselContainer.scrollLeft;
+							const cardWidth = getCardWidth();
+							const currentIndex = Math.round(scrollLeft / cardWidth);
+							const dots = carouselDots.querySelectorAll('.carousel-dot');
+							dots.forEach((dot, index) => {
+								if (index === currentIndex) {
+									dot.classList.add('active');
+								} else {
+									dot.classList.remove('active');
+								}
+							});
+						}, 100);
+					});
+				}
+				
 				// Update on window resize
 				let resizeTimeout;
 				window.addEventListener('resize', () => {
 					clearTimeout(resizeTimeout);
 					resizeTimeout = setTimeout(() => {
 						scrollPosition = 0;
-						servicesCarousel.style.transform = 'translateX(0)';
+						if (window.innerWidth > 991) {
+							servicesCarousel.style.transform = 'translateX(0)';
+						}
 						updateButtons();
 					}, 250);
 				});

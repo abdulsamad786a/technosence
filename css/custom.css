@@ -942,7 +942,11 @@ body {
 .services-carousel-wrapper {
     position: relative;
     padding: 0 45px;
-    
+}
+
+/* Pagination Dots - Hidden on Desktop */
+.carousel-dots {
+    display: none;
 }
 
 .services-carousel-container {
@@ -957,6 +961,14 @@ body {
     gap: 25px;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     will-change: transform;
+}
+
+/* Mobile: Disable transform, use native scroll */
+@media (max-width: 991px) {
+    .services-carousel {
+        transform: none !important;
+        transition: none;
+    }
 }
 
 .carousel-nav-btn {
@@ -2968,6 +2980,13 @@ body .main .who-we-are-section {
         -webkit-overflow-scrolling: touch;
         scroll-snap-type: x mandatory;
         scroll-behavior: smooth;
+        /* Hide scrollbar on mobile */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+    
+    .services-carousel-container::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
     }
     
     /* Hide navigation arrows on mobile */
@@ -2978,6 +2997,9 @@ body .main .who-we-are-section {
     .services-carousel {
         gap: 15px;
         scroll-snap-type: x mandatory;
+        /* On mobile, use native scroll instead of transform */
+        transform: none !important;
+        display: flex;
     }
     
     .service-card {
@@ -2987,6 +3009,42 @@ body .main .who-we-are-section {
         padding: 25px 20px;
         scroll-snap-align: start;
         flex-shrink: 0;
+    }
+    
+    /* Pagination Dots for Mobile - Show on mobile */
+    .carousel-dots {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 25px;
+        padding: 0 15px;
+    }
+    
+    .carousel-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(59, 130, 246, 0.3);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        padding: 0;
+        flex-shrink: 0;
+    }
+    
+    .carousel-dot.active {
+        background: var(--primary-blue-light);
+        width: 30px;
+        border-radius: 5px;
+    }
+    
+    .carousel-dot:hover {
+        background: rgba(59, 130, 246, 0.6);
+    }
+    
+    .carousel-dot:active {
+        transform: scale(0.9);
     }
     
     .service-icon {
