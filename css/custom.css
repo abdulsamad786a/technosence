@@ -2969,13 +2969,13 @@ body .main .who-we-are-section {
     }
     
     .services-carousel-wrapper {
-        padding: 0 15px; /* Reduced padding for full card display */
+        padding: 0; /* Remove padding to allow full width */
         margin: 0;
     }
     
     .services-carousel-container {
         margin: 0;
-        padding: 10px 0;
+        padding: 10px 15px; /* Add padding here instead */
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         scroll-snap-type: x mandatory;
@@ -3003,12 +3003,19 @@ body .main .who-we-are-section {
     }
     
     .service-card {
-        min-width: calc(100vw - 30px); /* Full width minus container padding */
-        max-width: calc(100vw - 30px);
-        width: calc(100vw - 30px);
-        padding: 25px 20px;
+        min-width: calc(100vw - 60px); /* Full width minus container padding (30px) and wrapper padding (30px) */
+        max-width: calc(100vw - 60px);
+        width: calc(100vw - 60px);
+        padding: 20px 16px; /* Reduced padding for smaller card */
         scroll-snap-align: start;
         flex-shrink: 0;
+        box-sizing: border-box; /* Ensure padding is included in width */
+    }
+    
+    /* Ensure container doesn't add extra padding */
+    .services-section .container {
+        padding-left: 15px;
+        padding-right: 15px;
     }
     
     /* Pagination Dots for Mobile - Show on mobile */
@@ -3397,14 +3404,19 @@ body .main .who-we-are-section {
     
     /* Services */
     .service-card {
-        min-width: calc(100vw - 30px); /* Full width minus container padding */
-        max-width: calc(100vw - 30px);
-        width: calc(100vw - 30px);
-        padding: 22px 18px;
+        min-width: calc(100vw - 60px); /* Full width minus container padding (30px) and wrapper padding (30px) */
+        max-width: calc(100vw - 60px);
+        width: calc(100vw - 60px);
+        padding: 20px 16px; /* Reduced padding for smaller card */
+        box-sizing: border-box;
     }
     
     .services-carousel-wrapper {
-        padding: 0 15px; /* Full width with minimal padding */
+        padding: 0; /* Remove padding */
+    }
+    
+    .services-carousel-container {
+        padding: 10px 15px; /* Add padding here */
     }
     
     /* Hide navigation arrows on small mobile */
@@ -3576,9 +3588,10 @@ body .main .who-we-are-section {
     /* Fix carousel on very small screens */
     @media (max-width: 360px) {
         .service-card {
-            min-width: calc(100vw - 30px); /* Full width minus container padding */
-            max-width: calc(100vw - 30px);
-            width: calc(100vw - 30px);
+            min-width: calc(100vw - 60px); /* Full width minus container padding */
+            max-width: calc(100vw - 60px);
+            width: calc(100vw - 60px);
+            padding: 18px 14px; /* Further reduced padding */
         }
         
         .services-carousel-wrapper {
