@@ -2957,33 +2957,36 @@ body .main .who-we-are-section {
     }
     
     .services-carousel-wrapper {
-        padding: 0 50px;
+        padding: 0 15px; /* Reduced padding for full card display */
         margin: 0;
     }
     
     .services-carousel-container {
         margin: 0;
         padding: 10px 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
     }
     
+    /* Hide navigation arrows on mobile */
     .carousel-nav-btn {
-        width: 40px;
-        height: 40px;
-        font-size: 14px;
+        display: none !important;
     }
     
-    .carousel-prev {
-        left: 5px;
-    }
-    
-    .carousel-next {
-        right: 5px;
+    .services-carousel {
+        gap: 15px;
+        scroll-snap-type: x mandatory;
     }
     
     .service-card {
-        min-width: 85vw;
-        max-width: 85vw;
+        min-width: calc(100vw - 30px); /* Full width minus container padding */
+        max-width: calc(100vw - 30px);
+        width: calc(100vw - 30px);
         padding: 25px 20px;
+        scroll-snap-align: start;
+        flex-shrink: 0;
     }
     
     .service-icon {
@@ -3336,27 +3339,19 @@ body .main .who-we-are-section {
     
     /* Services */
     .service-card {
-        min-width: 90vw;
-        max-width: 90vw;
+        min-width: calc(100vw - 30px); /* Full width minus container padding */
+        max-width: calc(100vw - 30px);
+        width: calc(100vw - 30px);
         padding: 22px 18px;
     }
     
     .services-carousel-wrapper {
-        padding: 0 40px;
+        padding: 0 15px; /* Full width with minimal padding */
     }
     
+    /* Hide navigation arrows on small mobile */
     .carousel-nav-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 12px;
-    }
-    
-    .carousel-prev {
-        left: 0;
-    }
-    
-    .carousel-next {
-        right: 0;
+        display: none !important;
     }
     
     /* Stats */
@@ -3523,26 +3518,18 @@ body .main .who-we-are-section {
     /* Fix carousel on very small screens */
     @media (max-width: 360px) {
         .service-card {
-            min-width: 95vw;
-            max-width: 95vw;
+            min-width: calc(100vw - 30px); /* Full width minus container padding */
+            max-width: calc(100vw - 30px);
+            width: calc(100vw - 30px);
         }
         
         .services-carousel-wrapper {
-            padding: 0 30px;
+            padding: 0 15px; /* Full width with minimal padding */
         }
         
+        /* Hide navigation arrows on very small screens */
         .carousel-nav-btn {
-            width: 30px;
-            height: 30px;
-            font-size: 10px;
-        }
-        
-        .carousel-prev {
-            left: -5px;
-        }
-        
-        .carousel-next {
-            right: -5px;
+            display: none !important;
         }
     }
 }
