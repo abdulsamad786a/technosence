@@ -1929,4 +1929,261 @@ ul.list-unstyled li a:hover {
 .border-theme {
     border-color: rgba(59, 130, 246, 0.2) !important;
 }
+
+/* ============================================
+   WHO WE ARE / WHAT WE DO SECTION - ABOUT PAGE
+   ============================================ */
+.who-we-are-section {
+    padding: 0;
+    margin: 0;
+    margin-bottom: 0;
+    min-height: calc(100vh - 80px);
+    overflow: hidden;
+    margin-top: 50px;
+    position: relative;
+    z-index: 1;
+}
+
+/* Remove bottom spacing from main on about page */
+.main:has(.who-we-are-section) {
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+/* Remove main padding for about page - more specific override */
+.main:has(.who-we-are-section),
+body .main .who-we-are-section {
+    padding-top: 0 !important;
+}
+
+.who-we-are-left {
+    background: var(--bg-dark);
+    padding: 80px 60px;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+}
+
+.what-we-do-right {
+    background: var(--bg-dark-light);
+    padding: 80px 60px;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    align-items: center;
+}
+
+.who-we-are-content {
+    width: 100%;
+    max-width: 600px;
+}
+
+.logo-section {
+    margin-bottom: 40px;
+}
+
+.company-logo-text {
+    font-size: 4rem;
+    font-weight: 900;
+    color: #dc2626;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+    line-height: 1.1;
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: var(--text-white);
+    font-weight: 500;
+    margin: 0;
+}
+
+.btn-about-us {
+    display: inline-block;
+    padding: 14px 35px;
+    background: #60a5fa;
+    color: #ffffff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    margin-bottom: 40px;
+    border: none;
+}
+
+.btn-about-us:hover {
+    background: #3b82f6;
+    transform: translateY(-2px);
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.section-heading {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--text-white);
+    margin-bottom: 40px;
+    line-height: 1.2;
+}
+
+.content-block {
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 30px;
+}
+
+.content-line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: #3b82f6;
+    border-radius: 2px;
+}
+
+.content-block p {
+    color: var(--text-white);
+    font-size: 1.15rem;
+    line-height: 1.9;
+    margin: 0;
+}
+
+.promise-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #3b82f6;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 15px;
+}
+
+.promise-text {
+    color: var(--text-white);
+    font-size: 1.15rem;
+    font-style: italic;
+    line-height: 1.9;
+    margin: 0;
+}
+
+.what-we-do-content {
+    width: 100%;
+    max-width: 600px;
+}
+
+.what-we-do-content .section-heading {
+    color: var(--text-white);
+    padding-left: 35px;
+    position: relative;
+}
+
+.what-we-do-content .section-heading::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 5px;
+    background: #3b82f6;
+    border-radius: 2px;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.service-block {
+    background: #0d9488;
+    border-radius: 12px;
+    padding: 35px 25px;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.service-block:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.service-icon-block {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 12px;
+}
+
+.service-icon-block i {
+    font-size: 32px;
+    color: #ffffff;
+}
+
+.service-block-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 12px;
+    line-height: 1.3;
+}
+
+.service-block-desc {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 0;
+    line-height: 1.5;
+}
+
+@media (max-width: 991px) {
+    .who-we-are-left,
+    .what-we-do-right {
+        min-height: auto;
+        padding: 60px 40px;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .company-logo-text {
+        font-size: 3rem;
+    }
+    
+    .section-heading {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .who-we-are-section {
+        margin-top: 80px;
+    }
+    
+    .who-we-are-left,
+    .what-we-do-right {
+        padding: 50px 30px;
+    }
+    
+    .company-logo-text {
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+    }
+    
+    .section-heading {
+        font-size: 1.8rem;
+    }
+    
+    .content-block p,
+    .promise-text {
+        font-size: 1rem;
+    }
+}
   
