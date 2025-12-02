@@ -3635,4 +3635,19 @@ body .main .who-we-are-section {
         }
     }
 }
+
+/* Career Page - Feature Box Text Styling */
+.feature-box.feature-box-style-2 .feature-box-info h4,
+.feature-box.feature-box-style-2 .feature-box-info p,
+.feature-box.feature-box-style-2 .feature-box-info {
+    color: var(--text-white) !important;
+}
+
+/* Career Page - Apply Now Section Text Styling */
+.career-apply-section,
+.career-apply-section h4,
+.career-apply-section p,
+.career-apply-section a {
+    color: var(--text-white) !important;
+}
   
